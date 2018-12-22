@@ -33,7 +33,7 @@ Protein colocalization needs to be quantified within the cellular boundaries (ex
 
 ## 4. Removing Low Expressing and Highly Expressing Cells
 Prior to perofroming the colocalization analysis we need to remove cells that are not expressing enought proteins (low signal to noise) and cells that are expressing too much proteins (saturated signal). We measure the mean intensity (cell boundaries only) for our Venus labelled proteins. We apply an intensity threshold to remove these cells from our analysis
-###NOTE: CellProfiler Normalizes 16-bit images to values in the range {0,1}
+### NOTE: CellProfiler Normalizes 16-bit images to values in the range {0,1}
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step5.png)
 
 ## 5. Removing Dead Cells
