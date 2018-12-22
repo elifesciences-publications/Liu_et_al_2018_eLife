@@ -14,7 +14,7 @@ The repository includes:
 # Step by Step Colocolization Analysis
 ## 1. Adding Images to CellProfiler and 
 Drag and Drop the images in the Files list in Cell Profiler
-![Alt Text](./ColocalizationSteps/Step0.PNG)
+![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step0.PNG)
 ## 2. Seperate Images Into Different Channels
 Each channel represents a different fluorophore/fluorescenly tagged protein imaged at a specific wavlength.
 For our data:
