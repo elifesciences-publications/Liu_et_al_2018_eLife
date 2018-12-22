@@ -3,7 +3,7 @@ This is a step-by-step guide for performing analysis on acqruied confocal images
 The images for the colocalization analysis were acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
 
 
-![Instance Segmentation Sample](assets/street.png)
+![Instance Segmentation Sample](ColocalizationSteps/Step0.png)
 
 The repository includes:
 * CellProfiler Project which includes the colocalizatoin pipeline which was used to perofrm multi-channel colocalziation analysis
