@@ -1,6 +1,6 @@
 # Protein Binding and Colocalization Analysis for Confocal Live Cell Imaging 
 This is a step-by-step guide for performing analysis on acqruied confocal images for live cells. 
-The images for the colocalization analysis was acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
+The images for the colocalization analysis were acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
 
 
 ![Instance Segmentation Sample](assets/street.png)
