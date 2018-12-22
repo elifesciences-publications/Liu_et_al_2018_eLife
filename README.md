@@ -12,7 +12,7 @@ The repository includes:
 ## 1. Adding Images to CellProfiler and 
 Drag and drop the images in the "Files list" in Cell Profiler
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step0.PNG)
-## 2. Seperate Images Into Different Channels
+## 2. Separate Images Into Different Channels
 Each channel represents a different fluorophore/fluorescenly tagged protein imaged at a specific wavlength.
 For our data:
 * Ch1 = MitoTracker channel
@@ -26,7 +26,7 @@ Cell profiler uses the nuclear channel to identify primary objects. Primary obje
 We use the nuclei as the primary objects and the Venus channel to identify secondary objects (Cell boundaries).
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step2.png)
 
-## 3. Cell Body Mask and Excluding the Nuclii
+## 3. Cell Body Mask and Excluding the Nuclei
 Protein colocalization needs to be quantified within the cellular boundaries (excluding the nucleus). We use CellProfile's masking to exclude the nuclii (primary objects) from our cell boundaries (secondary objects)
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step3.png)
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step4.png)
