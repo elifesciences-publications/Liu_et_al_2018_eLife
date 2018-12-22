@@ -3,14 +3,14 @@ This is a step-by-step guide for performing analysis on acqruied confocal images
 The images for the colocalization analysis were acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
 
 The repository includes:
-* CellProfiler Project which includes the colocalizatoin pipeline which was used to perofrm multi-channel colocalziation analysis
+* CellProfiler Project containing the analysis pipeline that was used to perofrm multi-channel colocalziation analysis
 * ImageJ macro to extract binding profiles from FLIM confocal images. 
 
 
 # PART A - Multi-Channel Colocalization Analysis
 # Step by Step Colocolization Analysis
 ## 1. Adding Images to CellProfiler and 
-Drag and Drop the images in the Files list in Cell Profiler
+Drag and drop the images in the "Files list" in Cell Profiler
 ![Alt Text](https://github.com/DWALab/Liu_et_al_2018_eLife/blob/master/ColocalizationSteps/Step0.PNG)
 ## 2. Seperate Images Into Different Channels
 Each channel represents a different fluorophore/fluorescenly tagged protein imaged at a specific wavlength.
