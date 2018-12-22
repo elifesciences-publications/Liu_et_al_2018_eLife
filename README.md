@@ -1,51 +1,52 @@
-# Mask R-CNN for Object Detection and Segmentation
+# Protein Binding and Colocalization Analysis for Confocal Live Cell Imaging 
+This is a step-by-step guide for performing analysis on acqruied confocal images for live cells. 
+The images for the colocalization analysis was acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
 
-This is an implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone.
 
 ![Instance Segmentation Sample](assets/street.png)
 
 The repository includes:
-* Source code of Mask R-CNN built on FPN and ResNet101.
-* Training code for MS COCO
-* Pre-trained weights for MS COCO
-* Jupyter notebooks to visualize the detection pipeline at every step
-* ParallelModel class for multi-GPU training
-* Evaluation on MS COCO metrics (AP)
-* Example of training on your own dataset
+* CellProfiler Project which includes the colocalizatoin pipeline which was used to perofrm multi-channel colocalziation analysis
+* ImageJ macro to extract binding profiles from FLIM confocal images. 
 
 
-The code is documented and designed to be easy to extend. If you use it in your research, please consider citing this repository (bibtex below). If you work on 3D vision, you might find our recently released [Matterport3D](https://matterport.com/blog/2017/09/20/announcing-matterport3d-research-dataset/) dataset useful as well.
-This dataset was created from 3D-reconstructed spaces captured by our customers who agreed to make them publicly available for academic use. You can see more examples [here](https://matterport.com/gallery/).
+# PART A - Multi-Channel Colocalization Analysis
+# Step by Step Colocolization Analysis
+## 1. Adding Images to CellProfiler and 
+Drag and Drop the images in the Files list in Cell Profiler
+![](ColocalizationSteps/Step0.png)
+## 2. Seperate Images Into Different Channels
+Each channel represents a different fluorophore/fluorescenly tagged protein imaged at a specific wavlength.
+For our data:
+* Ch1 = MitoTracker channel
+* Ch2 = Nuclear stain channel
+* Ch3 = Venus labelled proteins channel
+* Ch4 = mCerulean(3) labelled proteins channel
+![](ColocalizationSteps/Step1.png)
 
-# Getting Started
-* [demo.ipynb](samples/demo.ipynb) Is the easiest way to start. It shows an example of using a model pre-trained on MS COCO to segment objects in your own images.
-It includes code to run object detection and instance segmentation on arbitrary images.
+## 3. Cell Segmentation
+Cell profiler uses the nuclear channel to identify primary objects. Primary objects are used as seeds which inidcate the cellular position. Secondary Objects are then used to identify the borders (Cell body) for the objects where the seeds are initiated. 
+We use the nuclei as the primary objects and the Venus channel to identify secondary objects (Cell boundaries).
+![](ColocalizationSteps/Step2.png)
 
-* [train_shapes.ipynb](samples/shapes/train_shapes.ipynb) shows how to train Mask R-CNN on your own dataset. This notebook introduces a toy dataset (Shapes) to demonstrate training on a new dataset.
+## 3. Cell Body Mask and Excluding the Nuclii
+Protein colocalization needs to be quantified within the cellular boundaries (excluding the nucleus). We use CellProfile's masking to exclude the nuclii (primary objects) from our cell boundaries (secondary objects)
+![](ColocalizationSteps/Step3.png)
+![](ColocalizationSteps/Step4.png)
 
-* ([model.py](mrcnn/model.py), [utils.py](mrcnn/utils.py), [config.py](mrcnn/config.py)): These files contain the main Mask RCNN implementation. 
+## 4. Removing Low Expressing and Highly Expressing Cells
+Prior to perofroming the colocalization analysis we need to remove cells that are not expressing enought proteins (low signal to noise) and cells that are expressing too much proteins (saturated signal). We measure the mean intensity (cell boundaries only) for our Venus labelled proteins. We apply an intensity threshold to remove these cells from our analysis
+###NOTE: CellProfiler Normalizes 16-bit images to values in the range {0,1}
+![](ColocalizationSteps/Step5.png)
 
+## 5. Removing Dead Cells
+We also need to exclude dead cells from our colocalization analysis. We identify dead cells by their size. We measure the area for the cell bodies and remove objects below a certain size. For our images we chose 5,000 pixels as the lower size limit for a live cell. We also include a 30,000 pixel upper limit for the odd cases where the segmentation combines multiple cells together. 
+![](ColocalizationSteps/Step6.png)
+![](ColocalizationSteps/Step7.png)
 
-* [inspect_data.ipynb](samples/coco/inspect_data.ipynb). This notebook visualizes the different pre-processing steps
-to prepare the training data.
-
-* [inspect_model.ipynb](samples/coco/inspect_model.ipynb) This notebook goes in depth into the steps performed to detect and segment objects. It provides visualizations of every step of the pipeline.
-
-* [inspect_weights.ipynb](samples/coco/inspect_weights.ipynb)
-This notebooks inspects the weights of a trained model and looks for anomalies and odd patterns.
-
-
-# Step by Step Detection
-To help with debugging and understanding the model, there are 3 notebooks 
-([inspect_data.ipynb](samples/coco/inspect_data.ipynb), [inspect_model.ipynb](samples/coco/inspect_model.ipynb),
-[inspect_weights.ipynb](samples/coco/inspect_weights.ipynb)) that provide a lot of visualizations and allow running the model step by step to inspect the output at each point. Here are a few examples:
-
-
-
-## 1. Anchor sorting and filtering
-Visualizes every step of the first stage Region Proposal Network and displays positive and negative anchors along with anchor box refinement.
-![](assets/detection_anchors.png)
-
-## 2. Bounding Box Refinement
-This is an example of final detection boxes (dotted lines) and the refinement applied to them (solid lines) in the second stage.
-![](assets/detection_refinement.png)
+## 6. Multi-Channel Colocalization Analysis
+We use Top-Hat (Rolling Ball Approach) to perform background subtraction to all channels prior to measuring the colocalization. The colocalization is measured for the identified cellular objects between multiple channels. In our case we compare the colocalization of:
+* mCerulean3 labelled proteins to MitoTracker
+* Venus to MitoTracker labelled proteins to MitoTracker
+* mCerulean3 labelled proteins to Venus labelled proteins
+![](ColocalizationSteps/Step7.png)
