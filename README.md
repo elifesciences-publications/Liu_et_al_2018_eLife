@@ -1,4 +1,7 @@
 # Protein Binding and Colocalization Analysis for Confocal Live Cell Imaging 
+
+This code is associated with the paper from Lui et al., "Bim escapes displacement by BH3- mimetic anti-cancer drugs by double-bolt locking both Bcl-XL and Bcl-2". eLife, 2019. http://dx.doi.org/10.7554/eLife.37689
+
 This is a step-by-step guide for performing analysis on acqruied confocal images for live cells. 
 The images for the colocalization analysis were acqruied using the Opera Phenix. A multi-channel spinning disk confocal instrument. The images for FLIM-FRET experiment were acquired using The ISS Alb confocal FLIM Microscope. 
 
